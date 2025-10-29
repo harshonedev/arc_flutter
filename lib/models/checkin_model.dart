@@ -1,23 +1,30 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'checkin_model.freezed.dart';
-part 'checkin_model.g.dart';
+part 'checkin_model.mapper.dart';
 
-@freezed
-class CheckInModel with _$CheckInModel {
-  const factory CheckInModel({
-    required String id,
-    required String userId,
-    required String taskId,
-    required String challengeId,
-    required DateTime checkinDate,
-    required int pointsEarned,
-    String? notes,
-    @Default(false) bool isRestDay,
-    required DateTime createdAt,
-    @Default({}) Map<String, dynamic> metadata,
-  }) = _CheckInModel;
+@MappableClass()
+class CheckInModel with CheckInModelMappable {
+  final String id;
+  final String userId;
+  final String taskId;
+  final String challengeId;
+  final DateTime checkinDate;
+  final int pointsEarned;
+  final String? notes;
+  final bool isRestDay;
+  final DateTime createdAt;
+  final Map<String, dynamic> metadata;
 
-  factory CheckInModel.fromJson(Map<String, dynamic> json) =>
-      _$CheckInModelFromJson(json);
+  const CheckInModel({
+    required this.id,
+    required this.userId,
+    required this.taskId,
+    required this.challengeId,
+    required this.checkinDate,
+    required this.pointsEarned,
+    this.notes,
+    this.isRestDay = false,
+    required this.createdAt,
+    this.metadata = const {},
+  });
 }

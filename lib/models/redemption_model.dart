@@ -1,22 +1,28 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'redemption_model.freezed.dart';
-part 'redemption_model.g.dart';
+part 'redemption_model.mapper.dart';
 
-@freezed
-class RedemptionModel with _$RedemptionModel {
-  const factory RedemptionModel({
-    required String id,
-    required String userId,
-    required String rewardId,
-    required int pointsSpent,
-    required DateTime redeemedAt,
-    required String notes, // Required notes for redemption
-    @Default(false) bool isFulfilled,
-    DateTime? fulfilledAt,
-    @Default({}) Map<String, dynamic> metadata,
-  }) = _RedemptionModel;
+@MappableClass()
+class RedemptionModel with RedemptionModelMappable {
+  final String id;
+  final String userId;
+  final String rewardId;
+  final int pointsSpent;
+  final DateTime redeemedAt;
+  final String notes; // Required notes for redemption
+  final bool isFulfilled;
+  final DateTime? fulfilledAt;
+  final Map<String, dynamic> metadata;
 
-  factory RedemptionModel.fromJson(Map<String, dynamic> json) =>
-      _$RedemptionModelFromJson(json);
+  const RedemptionModel({
+    required this.id,
+    required this.userId,
+    required this.rewardId,
+    required this.pointsSpent,
+    required this.redeemedAt,
+    required this.notes,
+    this.isFulfilled = false,
+    this.fulfilledAt,
+    this.metadata = const {},
+  });
 }

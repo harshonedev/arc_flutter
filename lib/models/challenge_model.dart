@@ -1,25 +1,34 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'challenge_model.freezed.dart';
-part 'challenge_model.g.dart';
+part 'challenge_model.mapper.dart';
 
-@freezed
-class ChallengeModel with _$ChallengeModel {
-  const factory ChallengeModel({
-    required String id,
-    required String userId,
-    required String name,
-    required String description,
-    required DateTime startDate,
-    required DateTime endDate,
-    required bool isActive,
-    @Default([]) List<String> goalIds,
-    required DateTime createdAt,
-    DateTime? completedAt,
-    @Default(0) int totalPointsEarned,
-    @Default({}) Map<String, dynamic> metadata,
-  }) = _ChallengeModel;
+@MappableClass()
+class ChallengeModel with ChallengeModelMappable {
+  final String id;
+  final String userId;
+  final String name;
+  final String description;
+  final DateTime startDate;
+  final DateTime endDate;
+  final bool isActive;
+  final List<String> goalIds;
+  final DateTime createdAt;
+  final DateTime? completedAt;
+  final int totalPointsEarned;
+  final Map<String, dynamic> metadata;
 
-  factory ChallengeModel.fromJson(Map<String, dynamic> json) =>
-      _$ChallengeModelFromJson(json);
+  const ChallengeModel({
+    required this.id,
+    required this.userId,
+    required this.name,
+    required this.description,
+    required this.startDate,
+    required this.endDate,
+    required this.isActive,
+    this.goalIds = const [],
+    required this.createdAt,
+    this.completedAt,
+    this.totalPointsEarned = 0,
+    this.metadata = const {},
+  });
 }

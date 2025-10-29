@@ -1,25 +1,48 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
-part 'user_model.freezed.dart';
-part 'user_model.g.dart';
+part 'user_model.mapper.dart';
 
-@freezed
-class UserModel with _$UserModel {
-  const factory UserModel({
-    required String id,
-    required String email,
-    required String displayName,
-    String? photoUrl,
-    required int totalPoints,
-    required int availablePoints,
-    required DateTime createdAt,
-    required DateTime lastActiveAt,
-    @Default(0) int currentStreak,
-    @Default(0) int longestStreak,
-    DateTime? lastRestDay,
-    @Default({}) Map<String, dynamic> settings,
-  }) = _UserModel;
+@MappableClass()
+class UserModel with UserModelMappable {
+  final String id;
+  final String email;
+  final String displayName;
+  final String? photoUrl;
+  final int totalPoints;
+  final int availablePoints;
+  final DateTime createdAt;
+  final DateTime lastActiveAt;
+  final int currentStreak;
+  final int longestStreak;
+  final DateTime? lastRestDay;
+  final Map<String, dynamic> settings;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  const UserModel({
+    required this.id,
+    required this.email,
+    required this.displayName,
+    this.photoUrl,
+    required this.totalPoints,
+    required this.availablePoints,
+    required this.createdAt,
+    required this.lastActiveAt,
+    this.currentStreak = 0,
+    this.longestStreak = 0,
+    this.lastRestDay,
+    this.settings = const {},
+  });
+
+  factory UserModel.fromFirebaseUser(User user) {
+    return UserModel(
+      id: user.uid,
+      email: user.email ?? '',
+      displayName: user.displayName ?? 'Anonymous',
+      photoUrl: user.photoURL,
+      totalPoints: 0,
+      availablePoints: 0,
+      createdAt: DateTime.now(),
+      lastActiveAt: DateTime.now(),
+    );
+  }
 }

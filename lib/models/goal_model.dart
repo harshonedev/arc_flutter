@@ -1,24 +1,32 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'goal_model.freezed.dart';
-part 'goal_model.g.dart';
+part 'goal_model.mapper.dart';
 
-@freezed
-class GoalModel with _$GoalModel {
-  const factory GoalModel({
-    required String id,
-    required String userId,
-    required String challengeId,
-    required String name,
-    required String category, // e.g., "fitness", "productivity", "learning"
-    String? description,
-    String? icon,
-    @Default([]) List<String> taskIds,
-    required bool isActive,
-    required DateTime createdAt,
-    DateTime? updatedAt,
-  }) = _GoalModel;
+@MappableClass()
+class GoalModel with GoalModelMappable {
+  final String id;
+  final String userId;
+  final String challengeId;
+  final String name;
+  final String category; // e.g., "fitness", "productivity", "learning"
+  final String? description;
+  final String? icon;
+  final List<String> taskIds;
+  final bool isActive;
+  final DateTime createdAt;
+  final DateTime? updatedAt;
 
-  factory GoalModel.fromJson(Map<String, dynamic> json) =>
-      _$GoalModelFromJson(json);
+  const GoalModel({
+    required this.id,
+    required this.userId,
+    required this.challengeId,
+    required this.name,
+    required this.category,
+    this.description,
+    this.icon,
+    this.taskIds = const [],
+    required this.isActive,
+    required this.createdAt,
+    this.updatedAt,
+  });
 }

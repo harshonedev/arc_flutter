@@ -1,23 +1,30 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:dart_mappable/dart_mappable.dart';
 
-part 'reward_model.freezed.dart';
-part 'reward_model.g.dart';
+part 'reward_model.mapper.dart';
 
-@freezed
-class RewardModel with _$RewardModel {
-  const factory RewardModel({
-    required String id,
-    required String userId,
-    required String name,
-    required String description,
-    required int pointCost,
-    String? imageUrl,
-    @Default(true) bool isActive,
-    required DateTime createdAt,
-    DateTime? updatedAt,
-    @Default({}) Map<String, dynamic> metadata,
-  }) = _RewardModel;
+@MappableClass()
+class RewardModel with RewardModelMappable {
+  final String id;
+  final String userId;
+  final String name;
+  final String description;
+  final int pointCost;
+  final String? imageUrl;
+  final bool isActive;
+  final DateTime createdAt;
+  final DateTime? updatedAt;
+  final Map<String, dynamic> metadata;
 
-  factory RewardModel.fromJson(Map<String, dynamic> json) =>
-      _$RewardModelFromJson(json);
+  const RewardModel({
+    required this.id,
+    required this.userId,
+    required this.name,
+    required this.description,
+    required this.pointCost,
+    this.imageUrl,
+    this.isActive = true,
+    required this.createdAt,
+    this.updatedAt,
+    this.metadata = const {},
+  });
 }
