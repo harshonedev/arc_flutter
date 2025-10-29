@@ -1,5 +1,4 @@
 
-```markdown
 # 🌟 Arc — Habit & Task Tracker
 
 **Arc** is a Flutter app for Web and Android that helps you build consistency through challenges.  
