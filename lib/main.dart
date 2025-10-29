@@ -11,11 +11,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = createTextTheme(
-      context,
-      "Raleway",
-      "Bitcount Single",
-    );
+    TextTheme textTheme = createTextTheme(context, "Nunito", "Nunito Sans");
     final theme = AppTheme(textTheme);
 
     return MaterialApp(
