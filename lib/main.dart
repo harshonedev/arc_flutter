@@ -1,3 +1,5 @@
+import 'package:arc/core/theme/theme.dart';
+import 'package:arc/core/theme/util.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +11,19 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    TextTheme textTheme = createTextTheme(
+      context,
+      "Raleway",
+      "Bitcount Single",
+    );
+    final theme = AppTheme(textTheme);
+
+    return MaterialApp(
+      theme: theme.light(),
+      darkTheme: theme.dark(),
+      highContrastDarkTheme: theme.darkHighContrast(),
+      highContrastTheme: theme.lightHighContrast(),
+      home: Scaffold(body: Center(child: Text('Hello World!'))),
     );
   }
 }
